@@ -6,7 +6,7 @@
 
 
 <div class="mp">
-
+<div class="text-block large">
 {% for race in data %}
 {% if race.candidates != {} %}
 
@@ -24,7 +24,7 @@
       {% endif %}
       {% if candidate["incumbent?"] == "Yes" %}<p><em>Incumbent</em></p>{% endif %}
       <p>{{candidate.blurb}}</p>
-      <a href="#" class="button candidate-link" data-candidate-id="{{candidate.candidate_id}}">Close <i class="fa fa-arrow-up" title="Close"></i></a>
+      <a href="#" class="button small candidate-link" data-candidate-id="{{candidate.candidate_id}}">Close <i class="fa fa-arrow-up" title="Close"></i></a>
     </div>
     {% endfor %}
   </ul>
@@ -34,6 +34,7 @@
 {% endfor %}
 
 </div>
+</div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
@@ -41,6 +42,6 @@
 $('.candidate-link').click(function(){
   event.preventDefault();
   selector = $(this).data("candidate-id");
-  $('#'+selector).toggle(500);
+  $('#'+selector).slideToggle(500);
 });
 </script>
