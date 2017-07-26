@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="https://s3.amazonaws.com/data.minnpost/projects/minnpost-styles/0.0.6-alpha/minnpost-styles.min.css" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+<style>
+  .candidateinfo {display: none;}
+</style>
+
+
+<div class="mp">
+
+{% for race in data %}
+{% if race.candidates != {} %}
+
+<h2>{{race.office}}</h2>
+<p>{{race.blurb}}</p>
+
+{% for party, cands in race.candidates.items() %}
+  <h4 class="color-political-{{party[0].lower()}}">{{party}}</h4>
+  <ul>
+    {% for candidate in cands %}
+    <li><a class="candidate-link" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}</li>
+    <div class="candidateinfo" id="{{candidate.candidate_id}}">
+      {% if candidate["date-declared"] != '' %}
+      <p><strong>Entered the race on:</strong> {{candidate["date-declared"]}}</p>
+      {% endif %}
+      {% if candidate["incumbent?"] == "Yes" %}<p><em>Incumbent</em></p>{% endif %}
+      <p>{{candidate.blurb}}</p>
+      <a href="#" class="button candidate-link" data-candidate-id="{{candidate.candidate_id}}">Close <i class="fa fa-arrow-up" title="Close"></i></a>
+    </div>
+    {% endfor %}
+  </ul>
+{% endfor %}
+
+{% endif %}
+{% endfor %}
+
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<script>
+$('.candidate-link').click(function(){
+  event.preventDefault();
+  selector = $(this).data("candidate-id");
+  $('#'+selector).toggle(500);
+});
+</script>
