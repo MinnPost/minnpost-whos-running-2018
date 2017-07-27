@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="https://s3.amazonaws.com/data.minnpost/projects/minnpost-styles/0.0.6-alpha/minnpost-styles.min.css" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
 <style>
-  .candidateinfo {display: none; margin-bottom:2em; padding: 1em;}
+  .candidate-info {display: none; margin-bottom:2em!important; padding: 1em;}
+  .candidate-image { float: right; margin: 0 0 1em 1em;}
 </style>
 
 
@@ -18,12 +19,12 @@
   <ul>
     {% for candidate in cands %}
     <li id="{{candidate.candidate_id}}"><a class="candidate-link" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}</li>
-    <div class="candidateinfo" id="info-{{candidate.candidate_id}}">
-      {% if candidate["date-declared"] != '' %}
-      <p><strong>Entered the race on:</strong> {{candidate["date-declared"]}}</p>
-      {% endif %}
-      {% if candidate["incumbent?"] == "Yes" %}<p><em>Incumbent</em></p>{% endif %}
+    <div class="candidate-info" id="info-{{candidate.candidate_id}}">
+      <div class="candidate-image"><img src="{{url_for('static',filename=candidate['headshot-url'])}}" /></div>
       <p>{{candidate.blurb}}</p>
+      {% if candidate["incumbent?"] == "Yes" %}<p><em>Incumbent</em></p>{% endif %}
+      {% if candidate["date-declared"] != '' %}<p><strong>Entered the race on:</strong> {{candidate["date-declared"]}}</p>{% endif %}
+      {% if candidate.website != '' %}<p><strong>Campaign website:</strong> <a href="{{candidate.website}}" target="_blank">{{candidate.website}}</a></p>{%endif%}
       <a href="#" class="button small candidate-link" data-candidate-id="{{candidate.candidate_id}}">Close <i class="fa fa-arrow-up" title="Close"></i></a>
     </div>
     {% endfor %}
