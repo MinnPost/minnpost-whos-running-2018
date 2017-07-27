@@ -3,6 +3,7 @@
 <style>
   .candidate-info {display: none; margin-bottom:2em!important; padding: 1em;}
   .candidate-image { float: right; margin: 0 0 1em 1em;}
+  a.dropped-out { text-decoration: line-through; color: #7A7A7A; font-style: italic;}
 </style>
 
 
@@ -18,12 +19,13 @@
   <h4 class="color-political-{{party[0].lower()}}">{{party}}</h4>
   <ul>
     {% for candidate in cands %}
-    <li id="{{candidate.candidate_id}}"><a class="candidate-link" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}</li>
+    <li id="{{candidate.candidate_id}}"><a class="candidate-link{%if candidate["drop-out-date"] != ""%} dropped-out{%endif%}" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}</li>
     <div class="candidate-info cf" id="info-{{candidate.candidate_id}}">
       {% if candidate["headshot-url"] != '' %}<div class="candidate-image"><img src="{{url_for('static',filename=candidate['headshot-url'])}}" /></div>{% endif %}
       <p>{{candidate.blurb}}</p>
       {% if candidate["incumbent?"] == "Yes" %}<p><em>Incumbent</em></p>{% endif %}
       {% if candidate["date-declared"] != '' %}<p><strong>Entered the race on:</strong> {{candidate["date-declared"]}}</p>{% endif %}
+      {% if candidate["drop-out-date"] != "" %}<p><strong>Left the race on:</strong> {{candidate["drop-out-date"]}}</p>{% endif %}
       {% if candidate.website and candidate.website != '' %}<p><strong>Campaign website:</strong> <a href="{{candidate.website}}" target="_blank">{{candidate.website}}</a></p>{%endif%}
       <a href="#" class="button small candidate-link" data-candidate-id="{{candidate.candidate_id}}">Close <i class="fa fa-arrow-up" title="Close"></i></a>
     </div>
