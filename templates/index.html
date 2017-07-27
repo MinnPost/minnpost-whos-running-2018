@@ -19,12 +19,12 @@
   <ul>
     {% for candidate in cands %}
     <li id="{{candidate.candidate_id}}"><a class="candidate-link" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}</li>
-    <div class="candidate-info" id="info-{{candidate.candidate_id}}">
-      <div class="candidate-image"><img src="{{url_for('static',filename=candidate['headshot-url'])}}" /></div>
+    <div class="candidate-info cf" id="info-{{candidate.candidate_id}}">
+      {% if candidate["headshot-url"] != '' %}<div class="candidate-image"><img src="{{url_for('static',filename=candidate['headshot-url'])}}" /></div>{% endif %}
       <p>{{candidate.blurb}}</p>
       {% if candidate["incumbent?"] == "Yes" %}<p><em>Incumbent</em></p>{% endif %}
       {% if candidate["date-declared"] != '' %}<p><strong>Entered the race on:</strong> {{candidate["date-declared"]}}</p>{% endif %}
-      {% if candidate.website != '' %}<p><strong>Campaign website:</strong> <a href="{{candidate.website}}" target="_blank">{{candidate.website}}</a></p>{%endif%}
+      {% if candidate.website and candidate.website != '' %}<p><strong>Campaign website:</strong> <a href="{{candidate.website}}" target="_blank">{{candidate.website}}</a></p>{%endif%}
       <a href="#" class="button small candidate-link" data-candidate-id="{{candidate.candidate_id}}">Close <i class="fa fa-arrow-up" title="Close"></i></a>
     </div>
     {% endfor %}
