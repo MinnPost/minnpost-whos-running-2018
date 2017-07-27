@@ -4,11 +4,15 @@
   .candidate-info {display: none; margin-bottom:2em!important; padding: 1em;}
   .candidate-image { float: right; margin: 0 0 1em 1em;}
   a.dropped-out { text-decoration: line-through; color: #7A7A7A; font-style: italic;}
+  .candidate-permalink { display: none; }
+  .candidate-permalink a { color: #CCCCCC !important; }
+  .candidate-permalink a:hover { color: #ABABAB !important; }
 </style>
 
 <noscript>
   <style>
     .candidate-info {display: block;}
+    .candidate-permalink {display: inline;}
   </style>
 </noscript>
 
@@ -25,7 +29,7 @@
   <h4 class="color-political-{{party[0].lower()}}">{{party}}</h4>
   <ul>
     {% for candidate in cands %}
-    <li id="{{candidate.candidate_id}}"><a class="candidate-link{%if candidate["drop-out-date"] != ""%} dropped-out{%endif%}" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}</li>
+    <li id="{{candidate.candidate_id}}"><a class="candidate-link{%if candidate["drop-out-date"] != ""%} dropped-out{%endif%}" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}<span class="candidate-permalink" id="perma-{{candidate.candidate_id}}"> <a href="#{{candidate.candidate_id}}"><i class="fa fa-link"></i></a></span></li>
     <div class="candidate-info cf" id="info-{{candidate.candidate_id}}">
       {% if candidate["headshot-url"] != '' %}<div class="candidate-image"><img src="{{url_for('static',filename=candidate['headshot-url'])}}" /></div>{% endif %}
       <p>{{candidate.blurb}}</p>
@@ -52,12 +56,15 @@ $('.candidate-link').click(function(){
   event.preventDefault();
   selector = $(this).data("candidate-id");
   $('#info-'+selector).slideToggle(500);
+  $('#perma-'+selector).toggle();
+
 });
 
 $(document).ready(function(){
   var frag = $(location).attr("hash").substring(1);
   if (frag != "") {
     $('#info-'+frag).toggle();
+    $('#perma-'+frag).toggle();
   }
 });
 </script>
