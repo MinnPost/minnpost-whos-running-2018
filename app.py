@@ -22,8 +22,8 @@ def load_data_from_gsheet(wksheet):
     return wks.get_all_records()
 
 def formatted_data():
-    races = sample_race_data #load_data_from_gsheet("Races")
-    candidate_data = sample_candidate_data #load_data_from_gsheet("Candidates")
+    races = load_data_from_gsheet("Races") #sample_race_data 
+    candidate_data = load_data_from_gsheet("Candidates") #sample_candidate_data load_data_from_gsheet("Candidates")
 
     for race in races:
         race["candidates"] = {}
