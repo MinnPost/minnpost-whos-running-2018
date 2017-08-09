@@ -4,7 +4,7 @@
 
 <style>
   .candidate-info {display: none; margin-bottom:2em!important; padding: 1em;}
-  .candidate-image { float: right; margin: 0 0 1em 1em;}
+  .mp .candidate-info .candidate-image { float: right; margin: 0 0 1em 1em;}
   a.dropped-out { text-decoration: line-through; color: #7A7A7A; font-style: italic;}
   .candidate-permalink { display: none; }
   .candidate-permalink a { color: #CCCCCC !important; }
@@ -12,6 +12,7 @@
   body .node-unpublished {background-repeat: no-repeat;}
   .map-container { width: 100%; text-align: center; float:right;}
   .map {height: 250px!important;}
+  .mp .race-heading {margin-top: 2em;}
 </style>
 
 <noscript>
@@ -27,11 +28,11 @@
 {% for race in data %}
 {% if race.candidates != {} %}
 
-<h2>{{race.office}}</h2>
+<h2 class="race-heading">{{race.office}}</h2>
 <div class="row">
-  {% if race["map-id"] != '' %}<div class="column-large-66 column-medium-50">{% endif %}
-  <p>{{race.blurb}}</p>
-  {% if race["map-id"] != '' %}</div>{% endif %}
+  <div class="{% if race["map-id"] != '' %}column-large-66 column-medium-50{% else %}column-large-100{% endif %}">
+    <p>{{race.blurb}}</p>
+  </div>
 
   {% if race["map-id"] != '' %}
   <div class="column-large-33 column-medium-50">
