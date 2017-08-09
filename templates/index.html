@@ -109,7 +109,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 map{{race["map-id"][0]}}.removeControl(map{{race["map-id"][0]}}.zoomControl);
 map{{race["map-id"][0]}}.addControl(new L.Control.Zoom({ position: 'bottomright' }));
 
-$.getJSON('https://boundaries.minnpost.com/1.0/boundary/{{race["map-id"]}}?callback=?', function(data) {
+$.getJSON('https://s3.amazonaws.com/data.minnpost/projects/minnpost-whos-running-2018/boundaries/{{race["map-id"]}}.json', function(data) {
   if (data.simple_shape) {
     L.geoJson(data.simple_shape, {
         style: {
