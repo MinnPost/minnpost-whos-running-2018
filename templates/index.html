@@ -15,6 +15,11 @@
   .map-container { width: 100%; text-align: center; float:right;}
   .map {height: 250px!important;}
   .mp .race-heading {margin-top: 2em;}
+
+  @media (max-width: 600px) {
+    .race-blurb p {padding: 1em;}
+  }
+
 </style>
 
 <noscript>
@@ -32,7 +37,7 @@
 
 <h2 class="race-heading" id="{{race.office.lower() | replace(' ','-')}}">{{race.office}} <a href="#{{race.office.lower() | replace(' ','-')}}" title="Link to {{race.office}}" class="small"><i class="fa fa-link"></i></a></h2>
 <div class="row">
-  <div class="{% if race["map-id"] != '' %}column-large-66 column-medium-50{% else %}column-large-100{% endif %}">
+  <div class="race-blurb {% if race["map-id"] != '' %}column-large-66 column-medium-50{% else %}column-large-100{% endif %}">
     <p>{{race.blurb}}</p>
   </div>
 
@@ -52,11 +57,11 @@
     <li id="{{candidate.candidate_id}}"><a class="candidate-link{%if candidate["drop-out-date"] != ""%} dropped-out{%endif%}" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}{% if candidate["endorsed?"]=="Yes" %} <i class="fa fa-thumbs-up color-green" title="Endorsed"></i>{%endif%}<span class="candidate-permalink" id="perma-{{candidate.candidate_id}}"> <a href="#{{candidate.candidate_id}}"><i class="fa fa-link"></i></a></span></li>
     <div class="candidate-info cf" id="info-{{candidate.candidate_id}}">
       {% if candidate["headshot-url"] != '' %}<div class="candidate-image"><img src="{{candidate['headshot-url']}}" /></div>{% endif %}
-      {% if candidate.website and candidate.website != '' %}<p class="small"><strong>Campaign website:</strong> <a href="{{candidate.website}}" target="_blank">{{candidate.website}}</a></p>{%endif%}
       <p>{{candidate.blurb}}</p>
       {% if candidate.hometown != '' %}<p><strong>From:</strong> {{candidate.hometown}}</p>{% endif %}
       {% if candidate["date-declared"] != '' %}<p><strong>Entered the race on:</strong> {{candidate["date-declared"]}}</p>{% endif %}
       {% if candidate["drop-out-date"] != "" %}<p><strong>Left the race on:</strong> {{candidate["drop-out-date"]}}</p>{% endif %}
+      {% if candidate.website and candidate.website != '' %}<p><strong>Campaign website:</strong> <a href="{{candidate.website}}" target="_blank">{{candidate.website}}</a></p>{%endif%}
       {% if candidate["incumbent?"] == "Yes" %}<p><em>Incumbent</em></p>{% endif %}
       {% if candidate["endorsed?"] == "Yes" %}<p>Endorsed by <strong>{{party}} Party</strong></p>{% endif %}
       <a href="#" class="button small candidate-link" data-candidate-id="{{candidate.candidate_id}}">Close <i class="fa fa-arrow-up" title="Close"></i></a>
