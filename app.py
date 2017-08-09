@@ -2,6 +2,7 @@ import json
 from flask import Flask, render_template
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from collections import OrderedDict
 
 app = Flask(__name__)
 
@@ -22,11 +23,11 @@ def load_data_from_gsheet(wksheet):
     return wks.get_all_records()
 
 def formatted_data():
-    races = load_data_from_gsheet("Races") #sample_race_data 
+    races = load_data_from_gsheet("Races") #sample_race_data
     candidate_data = load_data_from_gsheet("Candidates") #sample_candidate_data load_data_from_gsheet("Candidates")
 
     for race in races:
-        race["candidates"] = {}
+        race["candidates"] = OrderedDict()
         for candidate in candidate_data:
             candidate_id = candidate["name"].replace(" ", "").lower()
             candidate["candidate_id"] = candidate_id
