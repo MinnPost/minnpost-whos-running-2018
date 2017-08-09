@@ -15,11 +15,6 @@
   .map-container { width: 100%; text-align: center; float:right;}
   .map {height: 250px!important;}
   .mp .race-heading {margin-top: 2em;}
-
-  @media (max-width: 600px) {
-    .race-blurb p {padding: 1em;}
-  }
-
 </style>
 
 <noscript>
@@ -37,7 +32,7 @@
 
 <h2 class="race-heading" id="{{race.office.lower() | replace(' ','-')}}">{{race.office}} <a href="#{{race.office.lower() | replace(' ','-')}}" title="Link to {{race.office}}" class="small"><i class="fa fa-link"></i></a></h2>
 <div class="row">
-  <div class="race-blurb {% if race["map-id"] != '' %}column-large-66 column-medium-50{% else %}column-large-100{% endif %}">
+  <div class="{% if race["map-id"] != '' %}column-large-66 column-medium-50{% else %}column-all-100{% endif %}">
     <p>{{race.blurb}}</p>
   </div>
 
@@ -56,7 +51,7 @@
     {% for candidate in cands %}
     <li id="{{candidate.candidate_id}}"><a class="candidate-link{%if candidate["drop-out-date"] != ""%} dropped-out{%endif%}" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}{% if candidate["endorsed?"]=="Yes" %} <i class="fa fa-thumbs-up color-green" title="Endorsed"></i>{%endif%}<span class="candidate-permalink" id="perma-{{candidate.candidate_id}}"> <a href="#{{candidate.candidate_id}}"><i class="fa fa-link"></i></a></span></li>
     <div class="candidate-info cf" id="info-{{candidate.candidate_id}}">
-      {% if candidate["headshot-url"] != '' %}<div class="candidate-image"><img src="{{candidate['headshot-url']}}" /></div>{% endif %}
+      {% if candidate["headshot-url"] != '' %}<div class="candidate-image"><img data-src="{{candidate['headshot-url']}}" /></div>{% endif %}
       <p>{{candidate.blurb}}</p>
       {% if candidate.hometown != '' %}<p><strong>From:</strong> {{candidate.hometown}}</p>{% endif %}
       {% if candidate["date-declared"] != '' %}<p><strong>Entered the race on:</strong> {{candidate["date-declared"]}}</p>{% endif %}
@@ -84,6 +79,8 @@ $('.candidate-link').click(function(){
   event.preventDefault();
   selector = $(this).data("candidate-id");
   $('#info-'+selector).slideToggle(500);
+  var img = $('#info-'+ selector +' img');
+  img[0].src = img.data("src");
   $('#perma-'+selector).toggle();
 
 });
@@ -92,6 +89,8 @@ $(document).ready(function(){
   var frag = $(location).attr("hash").substring(1);
   if (frag != "") {
     $('#info-'+frag).toggle();
+    var img = $('#info-'+ frag +' img');
+    img[0].src = img.data("src");
     $('#perma-'+frag).toggle();
   }
 });
