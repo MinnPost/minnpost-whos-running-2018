@@ -15,6 +15,10 @@
   .map-container { width: 100%; text-align: center; float:right;}
   .map {height: 250px!important;}
   .mp .race-heading {margin-top: 2em;}
+
+  @media (max-width: 600px) {
+    .mp .race-blurb p {padding: 1em!important;}
+  }
 </style>
 
 <noscript>
@@ -32,12 +36,12 @@
 
 <h2 class="race-heading" id="{{race.office.lower() | replace(' ','-')}}">{{race.office}} <a href="#{{race.office.lower() | replace(' ','-')}}" title="Link to {{race.office}}" class="small"><i class="fa fa-link"></i></a></h2>
 <div class="row">
-  <div class="{% if race["map-id"] != '' %}column-large-66 column-medium-50{% else %}column-all-100{% endif %}">
+  <div class="race-blurb {% if race["map-id"] != '' %}column-large-66 column-medium-50 column-small-100{% else %}column-all-100{% endif %}">
     <p>{{race.blurb}}</p>
   </div>
 
   {% if race["map-id"] != '' %}
-  <div class="column-large-33 column-medium-50">
+  <div class="column-large-33 column-medium-50 column-small-100">
     <div class="map-container">
       <div id="map-{{race['map-id']}}" class="map"></div>
     </div>
