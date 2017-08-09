@@ -9,6 +9,8 @@
   .candidate-permalink { display: none; }
   .candidate-permalink a { color: #CCCCCC !important; }
   .candidate-permalink a:hover { color: #ABABAB !important; }
+  .race-heading a { color: #CCCCCC !important; }
+  .race-heading a:hover { color: #ABABAB !important; }
   body .node-unpublished {background-repeat: no-repeat;}
   .map-container { width: 100%; text-align: center; float:right;}
   .map {height: 250px!important;}
@@ -28,7 +30,7 @@
 {% for race in data %}
 {% if race.candidates != {} %}
 
-<h2 class="race-heading">{{race.office}}</h2>
+<h2 class="race-heading" id="{{race.office.lower() | replace(' ','-')}}">{{race.office}} <a href="#{{race.office.lower() | replace(' ','-')}}" title="Link to {{race.office}}"><i class="fa fa-link"></i></a></h2>
 <div class="row">
   <div class="{% if race["map-id"] != '' %}column-large-66 column-medium-50{% else %}column-large-100{% endif %}">
     <p>{{race.blurb}}</p>
