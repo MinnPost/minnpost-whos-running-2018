@@ -79,7 +79,7 @@
 <script type="text/javascript" src="https://s3.amazonaws.com/data.minnpost/js/leaflet-0.6.1/leaflet.js"></script>
 
 <script>
-$('.candidate-link').click(function(){
+$('.candidate-link').click(function(event){
   event.preventDefault();
   selector = $(this).data("candidate-id");
   $('#info-'+selector).slideToggle(500);
