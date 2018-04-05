@@ -56,7 +56,7 @@
     <li id="{{candidate.candidate_id}}"><a class="candidate-link{%if candidate["drop-out-date"] != ""%} dropped-out{%endif%}" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}{% if candidate["endorsed?"]=="Yes" %} <i class="fa fa-thumbs-up color-green" title="Endorsed"></i>{%endif%}<span class="candidate-permalink" id="perma-{{candidate.candidate_id}}"> <a href="#{{candidate.candidate_id}}"><i class="fa fa-link"></i></a></span></li>
     <div class="candidate-info cf" id="info-{{candidate.candidate_id}}">
       {% if candidate["headshot-url"] != '' %}<div class="candidate-image"><img data-src="{{candidate['headshot-url']}}" /></div>{% endif %}
-      <p>{{candidate.blurb}}</p>
+      <p>{{candidate.blurb|safe}}</p>
       {% if candidate.hometown != '' %}<p><strong>From:</strong> {{candidate.hometown}}</p>{% endif %}
       {% if candidate["date-declared"] != '' %}<p><strong>Entered the race on:</strong> {{candidate["date-declared"]}}</p>{% endif %}
       {% if candidate["drop-out-date"] != "" %}<p><strong>Left the race on:</strong> {{candidate["drop-out-date"]}}</p>{% endif %}
