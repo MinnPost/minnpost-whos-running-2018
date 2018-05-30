@@ -58,6 +58,7 @@
       {% if candidate["headshot-url"] != '' %}<div class="candidate-image"><img data-src="{{candidate['headshot-url']}}" /></div>{% endif %}
       <p>{{candidate.blurb|safe}}</p>
       {% if candidate.hometown != '' %}<p><strong>From:</strong> {{candidate.hometown}}</p>{% endif %}
+      {% if candidate["running-mate"] != '' %}<p><strong>Running mate:</strong> {{candidate["running-mate"]}}{% if candidate["running-mate-town"] != '' %} ({{candidate["running-mate-town"]}}){% endif %}</p>{% endif %}
       {% if candidate["date-declared"] != '' %}<p><strong>Entered the race on:</strong> {{candidate["date-declared"]}}</p>{% endif %}
       {% if candidate["drop-out-date"] != "" %}<p><strong>Left the race on:</strong> {{candidate["drop-out-date"]}}</p>{% endif %}
       {% if candidate.website and candidate.website != '' %}<p><strong>Campaign website:</strong> <a href="{{candidate.website}}" target="_blank">{{candidate.website}}</a></p>{%endif%}
