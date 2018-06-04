@@ -29,7 +29,7 @@ def formatted_data():
     for race in races:
         race["candidates"] = OrderedDict()
         for candidate in candidate_data:
-            candidate_id = candidate["name"].replace(" ", "").lower()
+            candidate_id = candidate["office-sought"].replace(" ", "").lower() + "-" + candidate["name"].replace(" ", "").lower()
             candidate["candidate_id"] = candidate_id
             if candidate["office-sought"] == race["office"]:
                 if candidate["party"] in race["candidates"]:
