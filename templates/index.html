@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="https://s3.amazonaws.com/data.minnpost/projects/minnpost-styles/0.0.6-alpha/minnpost-styles.min.css" type="text/css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
 <link rel="stylesheet" href="https://s3.amazonaws.com/data.minnpost/js/leaflet-0.6.1/leaflet.css">
 
 <style>
@@ -15,6 +14,10 @@
   .map-container { width: 100%; text-align: center; float:right;}
   .map {height: 250px!important;}
   .mp .race-heading {margin-top: 2em;}
+
+  .mp .name-badge { display: inline-block; color: #fff; font-size:.6em; background-color: #7A7A7A; border-radius: 5px; padding: 0 3px 1px 3px; line-height:1.5em; vertical-align: text-top; margin-top: 6px;}
+  .mp .incumbent { background-color: #FF6633; }
+  .mp .endorsed { background-color: #36A174; }
 
   @media (max-width: 600px) {
     .mp .race-blurb p {padding: 1em!important;}
@@ -53,7 +56,7 @@
   <h4 class="color-political-{%if party.lower() == 'independence'%}ip{% elif party.lower() == 'green' %}gp{%else%}{{party[0].lower()}}{%endif%}">{{party}}</h4>
   <ul>
     {% for candidate in cands %}
-    <li id="{{candidate.candidate_id}}"><a class="candidate-link{%if candidate["drop-out-date"] != ""%} dropped-out{%endif%}" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <i class="fa fa-star color-orange" title="Incumbent"></i>{%endif%}{% if candidate["endorsed?"]=="Yes" %} <i class="fa fa-thumbs-up color-green" title="Endorsed"></i>{%endif%}<span class="candidate-permalink" id="perma-{{candidate.candidate_id}}"> <a href="#{{candidate.candidate_id}}"><i class="fa fa-link"></i></a></span></li>
+    <li id="{{candidate.candidate_id}}"><a class="candidate-link{%if candidate["drop-out-date"] != ""%} dropped-out{%endif%}" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <span class="name-badge incumbent">Incumbent</span>{%endif%}{% if candidate["endorsed?"]=="Yes" %} <span class="name-badge endorsed">&nbsp;Endorsed&nbsp;</span>{%endif%}<span class="candidate-permalink" id="perma-{{candidate.candidate_id}}"> <a href="#{{candidate.candidate_id}}"><i class="fa fa-link"></i></a></span></li>
     <div class="candidate-info cf" id="info-{{candidate.candidate_id}}">
       {% if candidate["headshot-url"] != '' %}<div class="candidate-image"><img data-src="{{candidate['headshot-url']}}" /></div>{% endif %}
       <p>{{candidate.blurb|safe}}</p>
