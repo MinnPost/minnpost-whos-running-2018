@@ -57,7 +57,7 @@
   <h4 class="color-political-{%if party.lower() == 'independence'%}ip{% elif party.lower() == 'green' %}gp{%else%}{{party[0].lower()}}{%endif%}">{{party}}</h4>
   <ul>
     {% for candidate in cands %}
-    <li id="{{candidate.candidate_id}}"><a class="candidate-link{%if candidate["drop-out-date"] != ""%} dropped-out{%endif%}" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}</a>{% if candidate["incumbent?"]=="Yes" %} <span class="name-badge incumbent">Incumbent</span>{%endif%}{% if candidate["endorsed?"]=="Yes" %} <span class="name-badge endorsed">&nbsp;Endorsed&nbsp;</span>{%endif%}<span class="candidate-permalink" id="perma-{{candidate.candidate_id}}"> <a href="#{{candidate.candidate_id}}"><i class="fa fa-link"></i></a></span></li>
+    <li id="{{candidate.candidate_id}}">{%if candidate["drop-out-date"] != ""%}<s>{%endif%}<a class="candidate-link{%if candidate["drop-out-date"] != ""%} dropped-out{%endif%}" href="#" data-candidate-id="{{candidate.candidate_id}}">{{candidate.name}}{%if candidate["drop-out-date"] != ""%}</s>{%endif%}</a>{% if candidate["incumbent?"]=="Yes" %} <span class="name-badge incumbent">Incumbent</span>{%endif%}{% if candidate["endorsed?"]=="Yes" %} <span class="name-badge endorsed">&nbsp;Endorsed&nbsp;</span>{%endif%}<span class="candidate-permalink" id="perma-{{candidate.candidate_id}}"> <a href="#{{candidate.candidate_id}}"><i class="fa fa-link"></i></a></span></li>
     <div class="candidate-info cf" id="info-{{candidate.candidate_id}}">
       {% if candidate["headshot-url"] != '' %}<div class="candidate-image"><img data-src="{{candidate['headshot-url']}}" /></div>{% endif %}
       <p>{{candidate.blurb|safe}}</p>
